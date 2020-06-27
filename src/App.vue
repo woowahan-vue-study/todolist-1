@@ -6,7 +6,7 @@
         <TodoInput></TodoInput>
       </div>
       <div class="main">
-        <TodoList></TodoList>
+        <TodoList :items="items"/>
       </div>
       <TodoCount></TodoCount>
     </section>
@@ -24,6 +24,22 @@ export default {
     TodoInput,
     TodoList,
     TodoCount
+  },
+  data() {
+    return {
+      items: [
+        {
+          id: 1,
+          content: "todo",
+          isCompleted: false
+        },
+        {
+          id: 2,
+          content: "todo2",
+          isCompleted: false
+        },
+      ]
+    }
   }
 };
 </script>

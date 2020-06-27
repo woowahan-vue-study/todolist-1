@@ -1,6 +1,10 @@
 <template>
   <ul id="todo-list" class="todo-list">
-    <TodoItem></TodoItem>
+    <TodoItem
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+    />
   </ul>
 </template>
 
@@ -10,6 +14,12 @@
     name: "TodoList",
     components: {
       TodoItem
+    },
+    props: {
+      items: {
+        type: Array,
+        required: true
+      }
     }
   }
 </script>
