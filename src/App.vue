@@ -3,7 +3,7 @@
     <section class="todoapp">
       <div>
         <h1>TODOS</h1>
-        <TodoInput></TodoInput>
+        <TodoInput :onAdd="onAdd"/>
       </div>
       <div class="main">
         <TodoList :items="items"/>
@@ -25,8 +25,19 @@ export default {
     TodoList,
     TodoCount
   },
+  methods: {
+    onAdd(content) {
+      const item = {
+        id: this.todoId++,
+        content: content,
+        isCompleted: false
+      }
+      this.items.push(item);
+    }
+  },
   data() {
     return {
+      todoId: 3,
       items: [
         {
           id: 1,

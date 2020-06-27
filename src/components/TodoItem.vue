@@ -1,7 +1,12 @@
 <template>
   <li>
     <div class="view">
-      <input class="toggle" type="checkbox" :checked="item.isCompleted">
+      <input
+        class="toggle"
+        type="checkbox"
+        :checked="item.isCompleted"
+        :data-id="item.id"
+      >
       <label class="label">{{ item.content }}</label>
       <button class="destroy"></button>
     </div>
