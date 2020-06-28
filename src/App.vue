@@ -31,6 +31,7 @@ export default {
         id: this.todoId++,
         content: content,
         isCompleted: false,
+        isEditing: false,
       };
       this.todoItems.push(item);
     },

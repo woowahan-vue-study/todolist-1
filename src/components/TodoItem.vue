@@ -1,5 +1,8 @@
 <template>
-  <li :data-id="item.id" :class="{ completed: item.isCompleted }">
+  <li
+    :data-id="item.id"
+    :class="{ completed: item.isCompleted, editing: item.isEditing }"
+  >
     <div class="view">
       <input
         class="toggle"
@@ -7,10 +10,17 @@
         :checked="item.isCompleted"
         @change="completeTodo"
       />
-      <label class="label">{{ item.content }}</label>
+      <label class="label" @dblclick="toggleEditingTodo">{{
+        item.content
+      }}</label>
       <button class="destroy" @click="deleteTodo"></button>
     </div>
-    <input class="edit" :value="item.context" />
+    <input
+      class="edit"
+      :value="item.content"
+      @keyup.enter="editTodo"
+      @keyup.esc="toggleEditingTodo"
+    />
   </li>
 </template>
 
@@ -29,6 +39,18 @@ export default {
     },
     deleteTodo() {
       this.$emit("onDelete", this.item.id);
+    },
+    toggleEditingTodo() {
+      this.item.isEditing = !this.item.isEditing;
+    },
+    editTodo(event) {
+      const content = event.target.value;
+      if (!content) {
+        this.toggleEditingTodo();
+        return;
+      }
+      this.item.content = content;
+      this.item.isEditing = !this.item.isEditing;
     },
   },
 };
