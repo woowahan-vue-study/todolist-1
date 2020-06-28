@@ -1,6 +1,11 @@
 <template>
   <ul id="todo-list" class="todo-list">
-    <TodoItem v-for="item in items" :key="item.id" :item="item" />
+    <TodoItem
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+      @onDelete="onDelete"
+    />
   </ul>
 </template>
 
@@ -16,6 +21,11 @@ export default {
     items: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    onDelete(id) {
+      this.$emit(`onDelete`, id);
     },
   },
 };

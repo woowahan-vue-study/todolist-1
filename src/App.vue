@@ -6,7 +6,7 @@
         <TodoInput :onAdd="onAdd" />
       </div>
       <div class="main">
-        <TodoList :items="items" />
+        <TodoList :items="items" @onDelete="onDelete" />
       </div>
       <TodoCount></TodoCount>
     </section>
@@ -33,6 +33,9 @@ export default {
         isCompleted: false,
       };
       this.items.push(item);
+    },
+    onDelete(id) {
+      this.items = this.items.filter((item) => item.id !== id);
     },
   },
   data() {

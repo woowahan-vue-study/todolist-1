@@ -8,7 +8,7 @@
         @change="completeTodo"
       />
       <label class="label">{{ item.content }}</label>
-      <button class="destroy"></button>
+      <button class="destroy" @click="deleteTodo"></button>
     </div>
     <input class="edit" :value="item.context" />
   </li>
@@ -28,6 +28,9 @@ export default {
       const $todoItem = event.target.closest("li");
       $todoItem.classList.toggle("completed");
       this.item.isCompleted = !this.item.isCompleted;
+    },
+    deleteTodo() {
+      this.$emit(`onDelete`, this.item.id);
     },
   },
 };
