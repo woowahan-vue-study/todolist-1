@@ -1,11 +1,11 @@
 <template>
-  <li>
+  <li :data-id="item.id">
     <div class="view">
       <input
         class="toggle"
         type="checkbox"
         :checked="item.isCompleted"
-        :data-id="item.id"
+        @change="completeTodo"
       />
       <label class="label">{{ item.content }}</label>
       <button class="destroy"></button>
@@ -21,6 +21,13 @@ export default {
     item: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    completeTodo(event) {
+      const $todoItem = event.target.closest("li");
+      $todoItem.classList.toggle("completed");
+      this.item.isCompleted = !this.item.isCompleted;
     },
   },
 };
