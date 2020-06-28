@@ -5,7 +5,6 @@
       :key="item.id"
       :item="item"
       :filter="filter"
-      @onDelete="onDelete"
     />
   </ul>
 </template>
@@ -18,19 +17,12 @@ export default {
   components: {
     TodoItem,
   },
-  props: {
-    items: {
-      type: Array,
-      required: true,
+  computed: {
+    items() {
+      return this.$store.state.todoItems;
     },
-    filter: {
-      type: String,
-      required: true,
-    },
-  },
-  methods: {
-    onDelete(id) {
-      this.$emit("onDelete", id);
+    filter() {
+      return this.$store.state.todoFilter;
     },
   },
 };

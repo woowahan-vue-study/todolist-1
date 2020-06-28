@@ -18,7 +18,7 @@ export default {
       if (!content) {
         return;
       }
-      this.$emit("onAdd", content);
+      this.$store.commit("ADD_TODO", content);
       this.inputValue = "";
     },
   },

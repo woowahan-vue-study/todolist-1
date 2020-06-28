@@ -48,7 +48,7 @@ export default {
       this.item.isCompleted = !this.item.isCompleted;
     },
     deleteTodo() {
-      this.$emit("onDelete", this.item.id);
+      this.$store.commit("DELETE_TODO", this.item.id);
     },
     toggleEditingTodo() {
       this.item.isEditing = !this.item.isEditing;

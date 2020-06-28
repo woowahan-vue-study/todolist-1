@@ -1,33 +1,32 @@
 <template>
   <div class="count-container">
     <span class="todo-count"
-      >총 <strong>{{ count }}</strong> 개</span
+      >총 <strong> {{ count }} </strong> 개</span
     >
-    <TodoFilter :filter="filter" @onFilter="onFilter"></TodoFilter>
+    <TodoFilter />
   </div>
 </template>
 
 <script>
 import TodoFilter from "./TodoFilter";
+import { FILTER } from "../assets/constants";
 
 export default {
   name: "TodoCount",
-  props: {
-    count: {
-      type: Number,
-      required: true,
-    },
-    filter: {
-      type: String,
-      required: true,
-    },
-  },
   components: {
     TodoFilter,
   },
-  methods: {
-    onFilter(value) {
-      this.$emit("onFilter", value);
+  computed: {
+    count() {
+      const filter = this.$store.state.todoFilter;
+      if (filter === FILTER.ACTIVE) {
+        return this.$store.state.todoItems.filter((item) => !item.isCompleted)
+          .length;
+      } else if (filter === FILTER.COMPLETED) {
+        return this.$store.state.todoItems.filter((item) => item.isCompleted)
+          .length;
+      }
+      return this.$store.state.todoItems.length;
     },
   },
 };
