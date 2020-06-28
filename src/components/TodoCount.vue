@@ -6,11 +6,12 @@
 </template>
 
 <script>
-  import TodoFilter from "./TodoFilter";
-  export default {
-    name: "TodoCount",
-    components: {
-      TodoFilter
-    }
-  }
+import TodoFilter from "./TodoFilter";
+
+export default {
+  name: "TodoCount",
+  components: {
+    TodoFilter,
+  },
+};
 </script>

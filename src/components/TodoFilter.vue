@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  export default {
-    name: "TodoFilter",
-  }
+export default {
+  name: "TodoFilter",
+};
 </script>

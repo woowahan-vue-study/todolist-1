@@ -6,22 +6,22 @@
         type="checkbox"
         :checked="item.isCompleted"
         :data-id="item.id"
-      >
+      />
       <label class="label">{{ item.content }}</label>
       <button class="destroy"></button>
     </div>
-    <input class="edit" :value="item.context">
+    <input class="edit" :value="item.context" />
   </li>
 </template>
 
 <script>
-  export default {
-    name: "TodoItem",
-    props: {
-      item: {
-        type: Object,
-        required: true
-      }
-    }
-  }
+export default {
+  name: "TodoItem",
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
