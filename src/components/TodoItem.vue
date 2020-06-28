@@ -1,5 +1,5 @@
 <template>
-  <li :data-id="item.id">
+  <li :data-id="item.id" :class="{ completed: item.isCompleted }">
     <div class="view">
       <input
         class="toggle"
@@ -24,9 +24,7 @@ export default {
     },
   },
   methods: {
-    completeTodo(event) {
-      const $todoItem = event.target.closest("li");
-      $todoItem.classList.toggle("completed");
+    completeTodo() {
       this.item.isCompleted = !this.item.isCompleted;
     },
     deleteTodo() {
