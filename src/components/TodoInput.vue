@@ -16,6 +16,9 @@ export default {
   methods: {
     addTodo(event) {
       const content = event.target.value;
+      if (!content) {
+        return;
+      }
       this.onAdd(content);
       this.inputValue = "";
     },

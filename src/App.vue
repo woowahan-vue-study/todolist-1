@@ -37,19 +37,8 @@ export default {
   },
   data() {
     return {
-      todoId: 3,
-      items: [
-        {
-          id: 1,
-          content: "todo",
-          isCompleted: false,
-        },
-        {
-          id: 2,
-          content: "todo2",
-          isCompleted: false,
-        },
-      ],
+      todoId: 0,
+      items: [],
     };
   },
 };
