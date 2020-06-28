@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     onDelete(id) {
-      this.$emit(`onDelete`, id);
+      this.$emit("onDelete", id);
     },
   },
 };

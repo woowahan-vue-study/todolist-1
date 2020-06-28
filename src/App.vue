@@ -3,7 +3,7 @@
     <section class="todoapp">
       <div>
         <h1>TODOS</h1>
-        <TodoInput :onAdd="onAdd" />
+        <TodoInput @onAdd="onAdd" />
       </div>
       <div class="main">
         <TodoList :items="items" @onDelete="onDelete" />

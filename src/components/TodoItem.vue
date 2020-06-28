@@ -28,7 +28,7 @@ export default {
       this.item.isCompleted = !this.item.isCompleted;
     },
     deleteTodo() {
-      this.$emit(`onDelete`, this.item.id);
+      this.$emit("onDelete", this.item.id);
     },
   },
 };

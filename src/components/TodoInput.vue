@@ -12,14 +12,13 @@
 <script>
 export default {
   name: "TodoInput",
-  props: ["onAdd"],
   methods: {
     addTodo(event) {
       const content = event.target.value;
       if (!content) {
         return;
       }
-      this.onAdd(content);
+      this.$emit("onAdd", content);
       this.inputValue = "";
     },
   },
