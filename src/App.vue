@@ -8,7 +8,7 @@
       <div class="main">
         <TodoList :items="todoItems" @onDelete="onDelete" />
       </div>
-      <TodoCount></TodoCount>
+      <TodoCount :count="todoItems.length"></TodoCount>
     </section>
   </div>
 </template>
