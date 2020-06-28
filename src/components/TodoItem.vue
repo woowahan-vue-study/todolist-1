@@ -1,5 +1,6 @@
 <template>
   <li
+    v-if="show"
     :data-id="item.id"
     :class="{ completed: item.isCompleted, editing: item.isEditing }"
   >
@@ -32,6 +33,15 @@ export default {
       type: Object,
       required: true,
     },
+    filter: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      show: true,
+    };
   },
   methods: {
     completeTodo() {
@@ -51,6 +61,16 @@ export default {
       }
       this.item.content = content;
       this.item.isEditing = !this.item.isEditing;
+    },
+  },
+  watch: {
+    filter: function (value) {
+      this.show = true;
+      if (value === "active") {
+        this.show = !this.item.isCompleted;
+      } else if (value === "completed") {
+        this.show = this.item.isCompleted;
+      }
     },
   },
 };

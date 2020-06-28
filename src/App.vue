@@ -6,9 +6,17 @@
         <TodoInput @onAdd="onAdd" />
       </div>
       <div class="main">
-        <TodoList :items="todoItems" @onDelete="onDelete" />
+        <TodoList
+          :items="todoItems"
+          :filter="todoFilter"
+          @onDelete="onDelete"
+        />
       </div>
-      <TodoCount :count="todoItems.length"></TodoCount>
+      <TodoCount
+        :count="todoCount"
+        :filter="todoFilter"
+        @onFilter="onFilter"
+      ></TodoCount>
     </section>
   </div>
 </template>
@@ -25,6 +33,14 @@ export default {
     TodoList,
     TodoCount,
   },
+  data() {
+    return {
+      todoId: 0,
+      todoItems: [],
+      todoCount: !this.todoItems ? 0 : this.todoItems.length,
+      todoFilter: "all",
+    };
+  },
   methods: {
     onAdd(content) {
       const item = {
@@ -34,16 +50,28 @@ export default {
         isEditing: false,
       };
       this.todoItems.push(item);
+      this.todoCount = this.todoItems.length;
     },
     onDelete(id) {
       this.todoItems = this.todoItems.filter((item) => item.id !== id);
     },
+    onFilter(value) {
+      this.todoFilter = value;
+    },
   },
-  data() {
-    return {
-      todoId: 0,
-      todoItems: [],
-    };
+  watch: {
+    todoFilter: function (value) {
+      this.todoCount = this.todoItems.length;
+      if (value === "active") {
+        this.todoCount = this.todoItems.filter(
+          (item) => !item.isCompleted
+        ).length;
+      } else if (value === "completed") {
+        this.todoCount = this.todoItems.filter(
+          (item) => item.isCompleted
+        ).length;
+      }
+    },
   },
 };
 </script>

@@ -4,6 +4,7 @@
       v-for="item in items"
       :key="item.id"
       :item="item"
+      :filter="filter"
       @onDelete="onDelete"
     />
   </ul>
@@ -20,6 +21,10 @@ export default {
   props: {
     items: {
       type: Array,
+      required: true,
+    },
+    filter: {
+      type: String,
       required: true,
     },
   },
