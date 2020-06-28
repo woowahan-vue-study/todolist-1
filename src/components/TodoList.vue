@@ -17,6 +17,9 @@ export default {
   components: {
     TodoItem,
   },
+  created() {
+    this.$store.commit("LOAD_TODO");
+  },
   computed: {
     items() {
       return this.$store.state.todoItems;

@@ -1,7 +1,6 @@
 <template>
   <li
-    v-if="show"
-    :data-id="item.id"
+    v-show="show"
     :class="{ completed: item.isCompleted, editing: item.isEditing }"
   >
     <div class="view">
@@ -46,9 +45,10 @@ export default {
   methods: {
     completeTodo() {
       this.item.isCompleted = !this.item.isCompleted;
+      this.$store.commit("COMPLETE_TODO", this.item._id);
     },
     deleteTodo() {
-      this.$store.commit("DELETE_TODO", this.item.id);
+      this.$store.commit("DELETE_TODO", this.item._id);
     },
     toggleEditingTodo() {
       this.item.isEditing = !this.item.isEditing;

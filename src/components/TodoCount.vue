@@ -9,7 +9,7 @@
 
 <script>
 import TodoFilter from "./TodoFilter";
-import { FILTER } from "../assets/constants";
+import { FILTER } from "../utils/constants";
 
 export default {
   name: "TodoCount",

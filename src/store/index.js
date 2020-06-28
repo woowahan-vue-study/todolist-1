@@ -1,26 +1,29 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { FILTER } from "../assets/constants";
+import { FILTER } from "../utils/constants";
+import api from "../api/todo";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    todoId: 0,
     todoItems: [],
     todoFilter: FILTER.ALL,
   },
   mutations: {
-    ADD_TODO(state, content) {
-      state.todoItems.push({
-        id: state.todoId++,
-        content: content,
-        isCompleted: false,
-        isEditing: false,
-      });
+    async LOAD_TODO(state) {
+      state.todoItems = await api.todo.getAll().catch((error) => alert(error));
+    },
+    async ADD_TODO(state, content) {
+      await api.todo.create({ content }).catch((error) => alert(error));
+      state.todoItems = await api.todo.getAll().catch((error) => alert(error));
+    },
+    COMPLETE_TODO(state, id) {
+      api.todo.toggle(id).catch((error) => alert(error));
     },
     DELETE_TODO(state, id) {
-      state.todoItems = state.todoItems.filter((item) => item.id !== id);
+      state.todoItems = state.todoItems.filter((item) => item._id !== id);
+      api.todo.delete(id).catch((error) => alert(error));
     },
     CHANGE_VIEW(state, target) {
       state.todoFilter = FILTER.of(target);
