@@ -1,9 +1,24 @@
 <template>
-  <span class="todo-count">총 <strong>0</strong> 개</span>
+  <span class="todo-count"
+    >총 <strong>{{ count }}</strong> 개</span
+  >
 </template>
 
 <script>
-export default {};
+import { FILTER } from "../utils/contants";
+
+export default {
+  computed: {
+    count() {
+      if (this.$store.state.todoFilter === FILTER.ALL) {
+        return this.$store.getters.allItemLength;
+      } else if (this.$store.todoFilter === FILTER.ACTIVE) {
+        return this.$store.getters.actvieItemLength;
+      }
+      return this.$store.getters.completedItemLength;
+    },
+  },
+};
 </script>
 
 <style></style>
