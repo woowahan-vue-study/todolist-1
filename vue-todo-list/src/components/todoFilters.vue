@@ -8,30 +8,12 @@
 
 <script>
 import todoFilter from "./todoFilter";
+import { FILTER } from "../utils/contants"
 
 export default {
   data: function() {
     return {
-      FILTERS: {
-        ALL: {
-          id: 1,
-          class:"all",
-          text: "전체보기",
-          link: "#/"
-        },
-        ACTIVE: {
-          id: 2,
-          class:"active",
-          text: "해야할일",
-          link: "#/active"
-        },
-        COMPLETED: {
-          id: 3,
-          class:"completed",
-          text: "완료한 일",
-          link: "#/completed"
-        },
-      },
+      FILTERS: FILTER,
     };
   },
   components: {
