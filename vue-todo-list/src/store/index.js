@@ -7,8 +7,8 @@ import { FILTER, BASE_URL } from "../utils/contants";
 Vue.use(Vuex);
 
 const AXIOS = axios.create({
-  baseURL: BASE_URL
-})
+  baseURL: BASE_URL,
+});
 
 export default new Vuex.Store({
   state: {
@@ -16,15 +16,19 @@ export default new Vuex.Store({
     todoFilter: FILTER.ALL,
   },
   mutations: {
-    // async LOAD_TODO(state) {
-    //   state.todoItems = await api.todo.getAll().catch((error) => alert(error));
-    // },
+    async LOAD_TODO(state) {
+      try {
+        state.todoItems = await AXIOS.get("");
+      } catch (error) {
+        alert(error);
+      }
+    },
     async ADD_TODO(state, content) {
       try {
-        await AXIOS.post('', {
+        await AXIOS.post("", {
           content: content,
         });
-        state.todoItems = await AXIOS.get('');
+        state.todoItems = await AXIOS.get("");
       } catch (error) {
         alert(error);
       }
