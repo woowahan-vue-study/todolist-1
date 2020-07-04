@@ -4,7 +4,7 @@
             class="new-todo"
             placeholder="할일을 추가해주세요"
             autofocus
-            @keyup="addTodo"
+            @keyup.enter="addTodo"
             v-model="inputValue"
     />
 </template>
@@ -21,8 +21,14 @@
         methods: {
             addTodo(e) {
                 const value = e.target.value;
-                console.log(value)
-            }
+                this.$store.state.todoItems.push({
+                    id:num++,
+                    value: value
+                })
+                console.log(this.$store.state.todoItems);
+                this.inputValue = "";
+            },
         }
     }
+    let num = 0;
 </script>
