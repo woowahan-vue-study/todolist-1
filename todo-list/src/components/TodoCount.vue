@@ -14,17 +14,3 @@
         </ul>
     </div>
 </template>
-<script>
-    import Style from "./Style";
-    export default {
-        name: "TodoCount",
-        components: {Style},
-        data() {
-            return {
-            }
-        },
-        methods: {
-
-        }
-    }
-</script>
