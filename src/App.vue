@@ -6,12 +6,27 @@
         id="new-todo-title"
         class="new-todo"
         placeholder="할일을 추가해주세요"
+        v-model="inputText"
+        @keyup.enter="addNewTodo"
         autofocus
       />
     </div>
     <div class="main">
       <input class="toggle-all" type="checkbox" />
-      <ul id="todo-list" class="todo-list"></ul>
+      <ul
+        id="todo-list"
+        class="todo-list"
+        :key="index"
+        v-for="(item, index) in todoItems"
+      >
+        <Todo
+          :id="item.id"
+          :title="item.title"
+          :status="item.status"
+          @toggleStatus="toggleStatusById"
+          @deleteTodo="deleteById"
+        ></Todo>
+      </ul>
     </div>
     <div class="count-container">
       <span class="todo-count">총 <strong>0</strong> 개</span>
@@ -31,8 +46,41 @@
 </template>
 
 <script>
+import Todo from "./components/Todo";
+
 export default {
   name: "App",
-  components: {},
+  data() {
+    return {
+      autoIncrementId: 0,
+      inputText: "",
+      todoItems: [],
+    };
+  },
+  methods: {
+    addNewTodo() {
+      if (this.inputText.trim() === "") {
+        return;
+      }
+      const newTodo = {
+        id: ++this.autoIncrementId,
+        title: this.inputText.trim(),
+        status: "active",
+      };
+      this.todoItems.push(newTodo);
+      this.inputText = "";
+    },
+    toggleStatusById(id) {
+      const index = this.todoItems.findIndex((item) => item.id === id);
+      const changedStatus =
+        this.todoItems[index].status === "active" ? "completed" : "active";
+      this.todoItems[index].status = changedStatus;
+    },
+    deleteById(id) {
+      const index = this.todoItems.findIndex((item) => item.id === id);
+      this.todoItems.splice(index, 1);
+    },
+  },
+  components: { Todo },
 };
 </script>
