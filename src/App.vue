@@ -14,15 +14,18 @@
     <div class="main">
       <input class="toggle-all" type="checkbox" />
       <ul id="todo-list" class="todo-list">
-        <Todo
-          :key="index"
+        <li
           v-for="(item, index) in todoItems"
-          :id="item.id"
-          :title="item.title"
-          :status="item.status"
-          @toggleStatus="toggleStatusById"
-          @deleteTodo="deleteById"
-        ></Todo>
+          :class="item.completed ? 'completed' : 'active'"
+          :key="index"
+        >
+          <div class="view">
+            <input class="toggle" type="checkbox" v-model="item.completed" />
+            <label class="label">{{ item.title }}</label>
+            <button class="destroy" @click="deleteById(item.id)"></button>
+          </div>
+          <input class="edit" :value="item.title" />
+        </li>
       </ul>
     </div>
     <div class="count-container">
@@ -43,8 +46,6 @@
 </template>
 
 <script>
-import Todo from "./components/Todo";
-
 export default {
   name: "App",
   data() {
@@ -62,22 +63,16 @@ export default {
       const newTodo = {
         id: ++this.autoIncrementId,
         title: this.inputText.trim(),
-        status: "active",
+        completed: false,
       };
       this.todoItems.push(newTodo);
       this.inputText = "";
-    },
-    toggleStatusById(id) {
-      const index = this.todoItems.findIndex((item) => item.id === id);
-      const changedStatus =
-        this.todoItems[index].status === "active" ? "completed" : "active";
-      this.todoItems[index].status = changedStatus;
     },
     deleteById(id) {
       const index = this.todoItems.findIndex((item) => item.id === id);
       this.todoItems.splice(index, 1);
     },
   },
-  components: { Todo },
+  components: {},
 };
 </script>
