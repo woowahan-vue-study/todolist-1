@@ -25,6 +25,7 @@ export default {
         return;
       }
       this.$store.commit("ADD_TODO", this.todoValue);
+      this.todoValue = ""
     }
   }
 };

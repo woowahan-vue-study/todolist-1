@@ -1,16 +1,20 @@
 <template>
-  <li>
-    <div class="view">
-      <input class="toggle" type="checkbox" />
-      <label class="label">새로운 타이틀</label>
-      <button class="destroy"></button>
-    </div>
-    <input class="edit" value="새로운 타이틀" />
-  </li>
+  <div>
+    <li>
+      <div v-bind:class="{completed: todoItem.isCompleted}">
+        <input class="toggle" type="checkbox" />
+        <label class="label">{{todoItem.content}}</label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit" v-bind:value="todoItem.content"/>
+    </li>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["todoItem"],
+};
 </script>
 
 <style></style>
