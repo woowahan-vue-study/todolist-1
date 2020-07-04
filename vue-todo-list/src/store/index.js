@@ -18,7 +18,7 @@ export default new Vuex.Store({
   mutations: {
     async LOAD_TODO(state) {
       try {
-        state.todoItems = await AXIOS.get("");
+        state.todoItems = await (await AXIOS.get("")).data;
       } catch (error) {
         alert(error);
       }
@@ -28,27 +28,42 @@ export default new Vuex.Store({
         await AXIOS.post("", {
           content: content,
         });
-        state.todoItems = await AXIOS.get("");
+        state.todoItems = await (await AXIOS.get("")).data;
       } catch (error) {
         alert(error);
       }
     },
     async COMPLETE_TODO(state, id) {
-      try{
-        await AXIOS.put(`/${id}/toggle`)
-        state.todoItems = await AXIOS.get("");
-      }catch(error){
+      try {
+        await AXIOS.put(`/${id}/toggle`);
+        state.todoItems = await (await AXIOS.get("")).data;
+      } catch (error) {
         alert(error);
       }
     },
-    // DELETE_TODO(state, id) {
-    //   state.todoItems = state.todoItems.filter((item) => item._id !== id);
-    //   api.todo.delete(id).catch((error) => alert(error));
-    // },
+    async DELETE_TODO(state, id) {
+      try {
+        await AXIOS.delete(`/${id}`);
+        state.todoItems = await (await AXIOS.get("")).data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // CHANGE_VIEW(state, target) {
     //   state.todoFilter = FILTER.of(target);
     // },
   },
   actions: {},
   modules: {},
+  getters: {
+    allItemLength: (state) => {
+      return state.todoItems.length;
+    },
+    actvieItemLength: (state) => {
+      return state.todoItems.filter((todoItem) => !todoItem.isCompleted).length;
+    },
+    completedItemLength: (state) => {
+      return state.todoItems.filter((todoItem) => todoItem.isCompleted).length;
+    },
+  },
 });
