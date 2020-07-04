@@ -43,9 +43,18 @@ export default {
     };
   },
   methods: {
+    setView(filter) {
+      this.show = true;
+      if (filter === "active") {
+        this.show = !this.item.isCompleted;
+      } else if (filter === "completed") {
+        this.show = this.item.isCompleted;
+      }
+    },
     completeTodo() {
       this.item.isCompleted = !this.item.isCompleted;
       this.$store.commit("COMPLETE_TODO", this.item._id);
+      this.setView(this.filter);
     },
     deleteTodo() {
       this.$store.commit("DELETE_TODO", this.item._id);
@@ -65,12 +74,7 @@ export default {
   },
   watch: {
     filter: function (value) {
-      this.show = true;
-      if (value === "active") {
-        this.show = !this.item.isCompleted;
-      } else if (value === "completed") {
-        this.show = this.item.isCompleted;
-      }
+      this.setView(value);
     },
   },
 };
