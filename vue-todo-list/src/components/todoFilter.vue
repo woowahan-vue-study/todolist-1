@@ -1,11 +1,13 @@
 <template>
   <li>
-    <a class="all selected" href="#/">전체보기</a>
+    <a v-bind:class="filter.class" v-bind:href="filter.link">{{ filter.text }}</a>
   </li>
 </template>
 
 <script>
-export default {};
+export default {
+  props:["filter"]
+};
 </script>
 
 <style></style>
