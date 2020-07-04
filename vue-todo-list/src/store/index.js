@@ -33,9 +33,14 @@ export default new Vuex.Store({
         alert(error);
       }
     },
-    // COMPLETE_TODO(state, id) {
-    //   api.todo.toggle(id).catch((error) => alert(error));
-    // },
+    async COMPLETE_TODO(state, id) {
+      try{
+        await AXIOS.put(`/${id}/toggle`)
+        state.todoItems = await AXIOS.get("");
+      }catch(error){
+        alert(error);
+      }
+    },
     // DELETE_TODO(state, id) {
     //   state.todoItems = state.todoItems.filter((item) => item._id !== id);
     //   api.todo.delete(id).catch((error) => alert(error));
