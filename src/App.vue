@@ -13,13 +13,10 @@
     </div>
     <div class="main">
       <input class="toggle-all" type="checkbox" />
-      <ul
-        id="todo-list"
-        class="todo-list"
-        :key="index"
-        v-for="(item, index) in todoItems"
-      >
+      <ul id="todo-list" class="todo-list">
         <Todo
+          :key="index"
+          v-for="(item, index) in todoItems"
           :id="item.id"
           :title="item.title"
           :status="item.status"
