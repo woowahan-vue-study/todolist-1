@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     async ADD_TODO(state, content) {
       await api.todo.create({ content }).catch((error) => alert(error));
-      state.todoItems = await api.todo.getAll().catch((error) => alert(error));
+      const newTodo = await api.todo.getAll().catch((error) => alert(error));
+      state.todoItems.push(newTodo[newTodo.length - 1]);
     },
     COMPLETE_TODO(state, id) {
       api.todo.toggle(id).catch((error) => alert(error));
