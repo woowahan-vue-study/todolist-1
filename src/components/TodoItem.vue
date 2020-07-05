@@ -11,7 +11,8 @@
                     <label class="label">{{item.content}}</label>
                     <button class="destroy" v-on:click="deleteItem(item)"></button>
                 </div>
-                <input v-model="editInputs[index]" v-on:keyup.enter="editContent(item, index)" v-on:keyup.esc="cancelEdit(item, index)"
+                <input v-model="editInputs[index]" v-on:keyup.enter="editContent(item, index)"
+                       v-on:keyup.esc="cancelEdit(item, index)"
                        class="edit" value="완료된 타이틀">
             </li>
         </ul>
@@ -36,7 +37,7 @@
         })
       },
       clickToggle(item) {
-        let newItem = {'_id': item._id, 'content': item.content, 'isCompleted': !item.isCompleted, 'isEditing': false};
+        const newItem = {'_id': item._id, 'content': item.content, 'isCompleted': !item.isCompleted, 'isEditing': false};
         this.$emit('@switch', newItem)
       },
       editContent(item, index) {

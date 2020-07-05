@@ -10,7 +10,7 @@
 import TodoForm from "./components/TodoForm.vue"
 import TodoItem from "./components/TodoItem.vue"
 import TodoFooter from "./components/TodoFooter.vue"
-import TodoItemApi from "./api/TodoItemApi.js";
+import TodoItemApi from "./api/TodoItemApi.js"
 
 export default {
   components: {
@@ -50,8 +50,7 @@ export default {
       this.selectedState = state
     },
     editItem(newItem) {
-      console.log(newItem)
-      TodoItemApi.toggle(newItem)
+      TodoItemApi.update(newItem)
       this.items = TodoItemApi.getTodoList()
     },
     removeItem({_id}) {

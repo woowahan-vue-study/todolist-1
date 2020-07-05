@@ -37,7 +37,7 @@ export default {
   add(content) {
     mockData.push({_id: idGenerator(), content, isCompleted: false, isEditing: false})
   },
-  toggle(newItem) {
+  update(newItem) {
     let index = mockData.findIndex(item => item._id === newItem._id);
     mockData.splice(index, 1, newItem)
   },
