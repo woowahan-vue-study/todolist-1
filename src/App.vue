@@ -17,7 +17,7 @@ export default {
     TodoItem,
     TodoFooter
   }
-};
+}
 </script>
 
 <style>

@@ -3,7 +3,7 @@
         <input class="toggle-all" type="checkbox">
         <ul id="todo-list" class="todo-list">
             <li v-for="(item, index) in selectedItem" :key="item._id"
-                v-bind:class="{editing: editInputs[index].isEditing, completed: !editInputs[index].isEditing && item.isCompleted}"
+                v-bind:class="{editing: isEditing(index), completed: isCompleted(index, item)}"
                 v-on:dblclick="switchEditMode(index)">
                 <div class="view">
                     <input class="toggle" type="checkbox" v-bind:checked="item.isCompleted"
@@ -40,6 +40,12 @@
       ...mapGetters(['selectedItem'])
     },
     methods: {
+      isEditing(index) {
+        return this.editInputs[index].isEditing
+      },
+      isCompleted(index, item) {
+        return !this.editInputs[index].isEditing && item.isCompleted
+      },
       fetchItems() {
         this.$store.dispatch('fetchItems')
       },
