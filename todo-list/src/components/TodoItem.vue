@@ -1,11 +1,11 @@
 <template>
-    <li :class="{completed: item.completed}">
+    <li :class="{completed: item.isCompleted, editing: item.isEditing}">
         <div class="view">
-            <input class="toggle" type="checkbox" @change="item.isCompleted" v-model = "item.completed">
-            <label class="label">{{ item.value }}</label>
+            <input class="toggle" type="checkbox" @change="completeTodoItem">
+            <label class="label" @dblclick="changeTodoItemState">{{ item.value }}</label>
             <button class="destroy" @click="deleteTodoItem(item.id)"></button>
         </div>
-        <input class="edit" value="새로운 타이틀">
+        <input class="edit" :value="item.value" @keyup.enter="editTodoItem" @keyup.esc="changeTodoItemState">
     </li>
 
 
@@ -25,8 +25,24 @@
             }
         },
         methods: {
+            completeTodoItem() {
+              this.item.isCompleted = !this.item.isCompleted;
+            },
+            changeTodoItemState() {
+                this.item.isEditing = !this.item.isEditing
+            },
             deleteTodoItem() {
                 this.$emit('onDelete',this.item.id)
+            },
+            editTodoItem(e) {
+                const updatedTodoItem = e.target.value;
+                if(!updatedTodoItem) {
+                    this.changeTodoItemState()
+                    return;
+                }
+                this.item.value = updatedTodoItem
+                this.changeTodoItemState()
+
             }
         },
     }
