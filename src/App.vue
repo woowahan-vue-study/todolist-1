@@ -18,35 +18,51 @@
           v-for="(item, index) in filteredTodoItems"
           :class="{ completed: item.isCompleted, editing: item.isEditing }"
           :key="index"
-          @dblclick="toggleEditingById(item.id)"
+          @dblclick="toggleEditMode(item.id)"
         >
           <div class="view">
             <input class="toggle" type="checkbox" v-model="item.isCompleted" />
             <label class="label">{{ item.title }}</label>
-            <button class="destroy" @click="deleteById(item.id)"></button>
+            <button class="destroy" @click="removeTodoItem(item.id)"></button>
           </div>
           <input
             class="edit"
             v-model="item.titleToEdit"
-            @keyup.enter="editById(item.id, item.titleToEdit)"
-            @keyup.esc="cancelEditingById(item.id)"
+            @keyup.enter="editTodoItem(item.id, item.titleToEdit)"
+            @keyup.esc="cancelEditMode(item.id)"
           />
         </li>
       </ul>
     </div>
     <div class="count-container">
-      <span class="todo-count"
-        >총 <strong>{{ activeTodoItemsSize }}</strong> 개</span
-      >
+      <span class="todo-count">
+        총
+        <strong>{{ activeTodoItemsSize }}</strong> 개
+      </span>
       <ul class="filters">
         <li>
-          <a class="all selected" href="#/">전체보기</a>
+          <a
+            class="all"
+            @click="changeFilter('all')"
+            :class="{ selected: status === 'all' }"
+            >전체보기</a
+          >
         </li>
         <li>
-          <a class="active" href="#/active">해야할 일</a>
+          <a
+            class="active"
+            @click="changeFilter('active')"
+            :class="{ selected: status === 'active' }"
+            >해야할 일</a
+          >
         </li>
         <li>
-          <a class="completed" href="#/completed">완료한 일</a>
+          <a
+            class="completed"
+            @click="changeFilter('completed')"
+            :class="{ selected: status === 'completed' }"
+            >완료한 일</a
+          >
         </li>
       </ul>
     </div>
@@ -68,15 +84,38 @@ export default {
       if (this.todoName.trim() === "") {
         return;
       }
-      const newTodo = {
+      this.todoItems.push(this.makeNewTodo());
+      this.todoName = "";
+    },
+    makeNewTodo() {
+      return {
         id: ++this.autoIncrementId,
         title: this.todoName.trim(),
         isCompleted: false,
         isEditing: false,
         titleToEdit: this.todoName.trim(),
       };
-      this.todoItems.push(newTodo);
-      this.todoName = "";
+    },
+    removeTodoItem(id) {
+      const index = this.todoItems.findIndex((item) => item.id === id);
+      this.todoItems.splice(index, 1);
+    },
+    editTodoItem(id, title) {
+      let item = this.todoItems.find((item) => item.id === id);
+      item.title = title;
+      this.toggleEditMode(id);
+    },
+    cancelEditMode(id) {
+      const item = this.todoItems.find((item) => item.id === id);
+      item.titleToEdit = item.title;
+      this.toggleEditMode(id);
+    },
+    toggleEditMode(id) {
+      const item = this.todoItems.find((item) => item.id === id);
+      item.isEditing = !item.isEditing;
+    },
+    changeFilter(status) {
+      this.status = status;
     },
   },
   computed: {
