@@ -2,7 +2,7 @@
     <div class="main">
         <input class="toggle-all" type="checkbox">
         <ul id="todo-list" class="todo-list">
-            <li v-for="item in items" :key="item.id"
+            <li v-for="(item, index) in items" :key="item.id"
                 v-bind:class="{editing: item.isEditing, completed: !item.isEditing && item.isCompleted}"
                 v-on:dblclick="switchEditMode(item)">
                 <div class="view">
@@ -11,7 +11,7 @@
                     <label class="label">{{item.content}}</label>
                     <button class="destroy" v-on:click="deleteItem(item)"></button>
                 </div>
-                <input v-model="editInput" v-on:keyup.enter="editContent(item)" v-on:keyup.esc="cancelEdit(item)"
+                <input v-model="editInputs[index]" v-on:keyup.enter="editContent(item, index)" v-on:keyup.esc="cancelEdit(item, index)"
                        class="edit" value="완료된 타이틀">
             </li>
         </ul>
@@ -23,7 +23,7 @@
     props: ['items'],
     data() {
       return {
-        editInput: ''
+        editInputs: this.items.map(item => item.content)
       }
     },
     methods: {
@@ -34,29 +34,27 @@
           'isCompleted': item.isCompleted,
           'isEditing': true
         })
-        this.editInput = item.content
       },
       clickToggle(item) {
         let newItem = {'_id': item._id, 'content': item.content, 'isCompleted': !item.isCompleted, 'isEditing': false};
         this.$emit('@switch', newItem)
       },
-      editContent(item) {
+      editContent(item, index) {
         this.$emit('@switch', {
           '_id': item._id,
-          'content': this.editInput,
+          'content': this.editInputs[index],
           'isCompleted': item.isCompleted,
           'isEditing': false
         })
-        this.editInput = ''
       },
-      cancelEdit(item) {
+      cancelEdit(item, index) {
         this.$emit('@switch', {
           '_id': item._id,
           'content': item.content,
           'isCompleted': item.isCompleted,
           'isEditing': false
         })
-        this.editInput = ''
+        this.editInputs[index] = item.content
       },
       deleteItem(item) {
         this.$emit('@remove', item)
