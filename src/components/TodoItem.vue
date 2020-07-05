@@ -61,6 +61,7 @@ export default {
     },
     toggleEditingTodo() {
       this.item.isEditing = !this.item.isEditing;
+      this.$forceUpdate();
     },
     editTodo(event) {
       const content = event.target.value;
