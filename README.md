@@ -1,8 +1,9 @@
 # Vue로 TodoList 하기
 
 ## 요구사항
-- [ ] Vue CIL을 이용해 Vue Project로 만들어 진행한다.
-- [ ] 제공해준 HTML, CSS를 이용해 Vue 컴포넌트를 만든다.
+
+- [x] Vue CIL을 이용해 Vue Project로 만들어 진행한다.
+- [x] 제공해준 HTML, CSS를 이용해 Vue 컴포넌트를 만든다.
 - [ ] todo list에 todoItem을 키보드로 입력하여 추가하기
 - [ ] todo list의 체크박스를 클릭하여 complete 상태로 변경. (li tag 에 completed class 추가)
 - [ ] todo list의 x버튼을 이용해서 해당 엘리먼트를 삭제
@@ -12,7 +13,8 @@
 - [ ] 우테코 사이트를 참고하여 CRUD에 대한 RESTAPI를 통신한다.
 
 ## 제약사항
-- Eslint와 Prettier로 컨벤션 약속 정하기
+
+- [x] Eslint와 Prettier로 컨벤션 약속 정하기
 - var 쓰지 말것 (let과 const만 쓰자)
 - 일치연산자 == 쓰지 말 것
 - for문 사용 자제하기
@@ -22,4 +24,5 @@
 - 예외 상황 처리하기
 
 ## 참고자료
+
 [VueTodoMvc](https://kr.vuejs.org/v2/examples/todomvc.html)
