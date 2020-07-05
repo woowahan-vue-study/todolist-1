@@ -9,7 +9,7 @@ import { FILTER } from "../utils/contants";
 
 export default {
   computed: {
-    count() {      
+    count() {
       if (this.$store.state.todoFilter === FILTER.ALL) {
         return this.$store.getters.allItemLength;
       } else if (this.$store.state.todoFilter === FILTER.ACTIVE) {

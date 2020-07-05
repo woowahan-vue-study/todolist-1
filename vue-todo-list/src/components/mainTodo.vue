@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import todoList from "./todoList"
+import todoList from "./todoList";
 export default {
-    components:{
-        'todo-list':todoList
-    }
+  components: {
+    "todo-list": todoList,
+  },
 };
 </script>
 

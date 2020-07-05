@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     todoItems() {
-      if (this.$store.state.todoFilter === FILTER.ACTIVE) {          
+      if (this.$store.state.todoFilter === FILTER.ACTIVE) {
         return this.$store.state.todoItems.filter(
           ({ isCompleted }) => !isCompleted
         );
