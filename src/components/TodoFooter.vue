@@ -1,35 +1,33 @@
 <template>
     <div class="count-container">
-        <span class="todo-count">총 <strong>{{count}}</strong> 개</span>
+        <span class="todo-count">총 <strong>{{selectedCount}}</strong> 개</span>
         <ul class="filters">
             <li>
-                <a class="all" href="#/" v-on:click="toggleAll"
-                   v-bind:class="{selected : selectedType === 'all'}">전체보기</a>
+                <a class="all" href="#/" v-on:click="changeState('all')"
+                   v-bind:class="{selected : selectedState === 'all'}">전체보기</a>
             </li>
             <li>
-                <a class="active" href="#/active" v-on:click="filterUnCompleted"
-                   v-bind:class="{selected : selectedType === 'unCompleted'}">해야할 일</a>
+                <a class="active" href="#/active" v-on:click="changeState('unCompleted')"
+                   v-bind:class="{selected : selectedState === 'unCompleted'}">해야할 일</a>
             </li>
             <li>
-                <a class="completed" href="#/completed" v-on:click="filterCompleted"
-                   v-bind:class="{selected : selectedType === 'completed'}">완료한 일</a>
+                <a class="completed" href="#/completed" v-on:click="changeState('completed')"
+                   v-bind:class="{selected : selectedState === 'completed'}">완료한 일</a>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+  import {mapGetters} from "vuex"
+
   export default {
-    props: ['count', 'selectedType'],
+    computed: {
+      ...mapGetters(['selectedCount', 'selectedState'])
+    },
     methods: {
-      filterCompleted() {
-        this.$emit('@filter', 'completed')
-      },
-      filterUnCompleted() {
-        this.$emit('@filter', 'unCompleted')
-      },
-      toggleAll() {
-        this.$emit('@filter', 'all')
+      changeState(selectedState) {
+        this.$store.commit('updateSelectedState', selectedState)
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <section class="todoapp">
-    <todo-form v-on:@add="addNewItem"></todo-form>
-    <todo-item v-on:@switch="editItem" v-on:@remove="removeItem" v-bind:items="selectedItem"></todo-item>
-    <todo-footer v-on:@filter="changeFilterCondition" v-bind:count="selectedCount" v-bind:selectedType="selectedState"></todo-footer>
+    <todo-form></todo-form>
+    <todo-item></todo-item>
+    <todo-footer></todo-footer>
   </section>
 </template>
 
@@ -10,53 +10,12 @@
 import TodoForm from "./components/TodoForm.vue"
 import TodoItem from "./components/TodoItem.vue"
 import TodoFooter from "./components/TodoFooter.vue"
-import TodoItemApi from "./api/TodoItemApi.js"
 
 export default {
   components: {
     TodoForm,
     TodoItem,
     TodoFooter
-  },
-  data() {
-    return {
-      items: [],
-      selectedState: 'all'
-    }
-  },
-  created() {
-    this.items = TodoItemApi.getTodoList()
-  },
-  computed: {
-    selectedItem() {
-      if (this.selectedState === 'all') {
-        return this.items
-      }
-      if (this.selectedState === 'unCompleted') {
-        return this.items.filter(item => !item.isCompleted)
-      }
-      return this.items.filter(item => item.isCompleted)
-    },
-    selectedCount() {
-      return this.selectedItem.length
-    }
-  },
-  methods: {
-    addNewItem(item) {
-      TodoItemApi.add(item)
-      this.items = TodoItemApi.getTodoList()
-    },
-    changeFilterCondition(state) {
-      this.selectedState = state
-    },
-    editItem(newItem) {
-      TodoItemApi.update(newItem)
-      this.items = TodoItemApi.getTodoList()
-    },
-    removeItem({_id}) {
-      TodoItemApi.delete(_id)
-      this.items = TodoItemApi.getTodoList()
-    }
   }
 };
 </script>

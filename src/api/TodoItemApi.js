@@ -1,29 +1,4 @@
-let mockData = [
-  {
-    _id: `0f68d9b`,
-    content: `죠르디 수건 사기`,
-    isCompleted: true,
-    isEditing: false
-  },
-  {
-    _id: `0f68d9d`,
-    content: `죠르디 케이스 사기`,
-    isCompleted: true,
-    isEditing: false
-  },
-  {
-    _id: `0f68d9f`,
-    content: `죠르디 핸디 선풍기 사기`,
-    isCompleted: false,
-    isEditing: false
-  },
-  {
-    _id: `1f68d9A`,
-    content: `죠르디 양말 선물하기`,
-    isCompleted: false,
-    isEditing: false
-  },
-];
+import mockData from '../model/TodoItemMockData.js'
 
 const idGenerator = (() => {
   let startId = 1000000
@@ -32,16 +7,27 @@ const idGenerator = (() => {
 
 export default {
   getTodoList() {
-    return mockData
+    return new Promise(res => setTimeout(() => res(mockData), 1000))
   },
   add(content) {
-    mockData.push({_id: idGenerator(), content, isCompleted: false, isEditing: false})
+    return new Promise(res => setTimeout(() => {
+      const createdId = idGenerator()
+      mockData.push({_id: createdId, content, isCompleted: false})
+      res(createdId)
+    }, 1000))
   },
   update(newItem) {
-    let index = mockData.findIndex(item => item._id === newItem._id);
-    mockData.splice(index, 1, newItem)
+    return new Promise(res => setTimeout(() => {
+      const index = mockData.findIndex(item => item._id === newItem._id);
+      mockData.splice(index, 1, newItem)
+      res(newItem._id)
+    }, 800))
   },
   delete(id) {
-    mockData = mockData.filter(item => item._id !== id)
+    return new Promise(res => setTimeout(() => {
+      const index = mockData.findIndex(item => item._id === id);
+      mockData.splice(index, 1)
+      res()
+    }, 1000))
   }
 }

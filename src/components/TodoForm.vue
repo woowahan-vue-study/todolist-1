@@ -15,7 +15,7 @@
     },
     methods: {
       addTodoItem() {
-        this.$emit('@add', this.inputValue)
+        this.$store.dispatch('addItem', this.inputValue)
         this.inputValue = ''
       }
     }
