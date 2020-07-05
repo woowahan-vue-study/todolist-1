@@ -3,7 +3,7 @@
     <span class="todo-count"
       >총 <strong> {{ count }} </strong> 개</span
     >
-    <TodoFilter />
+    <todo-filter />
   </div>
 </template>
 

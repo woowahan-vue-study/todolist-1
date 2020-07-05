@@ -3,12 +3,12 @@
     <section class="todoapp">
       <div>
         <h1>TODOS</h1>
-        <TodoInput />
+        <todo-input />
       </div>
       <div class="main">
-        <TodoList />
+        <todo-list />
       </div>
-      <TodoCount></TodoCount>
+      <todo-count />
     </section>
   </div>
 </template>
