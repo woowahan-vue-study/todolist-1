@@ -1,60 +1,63 @@
 <template>
   <section class="todoapp">
-    <div>
-      <h1>TODOS</h1>
-      <input id="new-todo-title" class="new-todo" placeholder="할일을 추가해주세요" autofocus>
-    </div>
-    <div class="main">
-      <input class="toggle-all" type="checkbox">
-      <ul id="todo-list" class="todo-list">
-        <li>
-          <div class="view">
-            <input class="toggle" type="checkbox">
-            <label class="label">새로운 타이틀</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="새로운 타이틀">
-        </li>
-        <li class="editing">
-          <div class="view">
-            <input class="toggle" type="checkbox">
-            <label class="label">완료된 타이틀</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="완료된 타이틀">
-        </li>
-        <li class="completed">
-          <div class="view">
-            <input class="toggle" type="checkbox">
-            <label class="label">완료된 타이틀</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="완료된 타이틀">
-        </li>
-      </ul>
-    </div>
-    <div class="count-container">
-      <span class="todo-count">총 <strong>0</strong> 개</span>
-      <ul class="filters">
-        <li>
-          <a class="all selected" href="#/">전체보기</a>
-        </li>
-        <li>
-          <a class="active" href="#/active">해야할 일</a>
-        </li>
-        <li>
-          <a class="completed" href="#/completed">완료한 일</a>
-        </li>
-      </ul>
-    </div>
+    <todo-form v-on:@add="addNewItem"></todo-form>
+    <todo-item v-on:@switch="editItem" v-on:@remove="removeItem" v-bind:items="selectedItem"></todo-item>
+    <todo-footer v-on:@filter="changeFilterCondition" v-bind:count="selectedCount" v-bind:selectedType="selectedState"></todo-footer>
   </section>
 </template>
 
 <script>
+import TodoForm from "./components/TodoForm.vue"
+import TodoItem from "./components/TodoItem.vue"
+import TodoFooter from "./components/TodoFooter.vue"
+import TodoItemApi from "./api/TodoItemApi.js";
 
 export default {
-  name: "App",
   components: {
+    TodoForm,
+    TodoItem,
+    TodoFooter
+  },
+  data() {
+    return {
+      items: [],
+      selectedState: 'all'
+    }
+  },
+  created() {
+    this.items = TodoItemApi.getTodoList()
+  },
+  computed: {
+    selectedItem() {
+      if (this.selectedState === 'all') {
+        return this.items
+      }
+      if (this.selectedState === 'unCompleted') {
+        return this.items.filter(item => !item.isCompleted)
+      }
+      return this.items.filter(item => item.isCompleted)
+    },
+    selectedCount() {
+      return this.selectedItem.length
+    }
+  },
+  methods: {
+    addNewItem(item) {
+      TodoItemApi.add(item)
+      this.items = TodoItemApi.getTodoList()
+    },
+    changeFilterCondition(state) {
+      this.selectedState = state
+    },
+    editItem(newItem) {
+      console.log(newItem)
+      TodoItemApi.toggle(newItem)
+      this.items = TodoItemApi.getTodoList()
+    },
+    removeItem({_id}) {
+      TodoItemApi.delete(_id)
+      this.items = TodoItemApi.getTodoList()
+    }
   }
 };
 </script>
