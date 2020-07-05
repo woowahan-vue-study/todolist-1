@@ -7,6 +7,7 @@
                     v-for="todoItem in todoItems"
                     :key = "todoItem.id"
                     :item = "todoItem"
+                    @onDelete = "deleteTodoItem"
             />
         </ul>
     </div>
@@ -22,7 +23,9 @@
             }
         },
         methods: {
-
+            deleteTodoItem(id) {
+                this.todoItems.splice(id,1)
+            }
         }
     }
 </script>

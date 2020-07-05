@@ -20,10 +20,13 @@
 
         methods: {
             addTodo(e) {
+                console.log(this.$store.state.todoItems)
                 const value = e.target.value;
                 this.$store.state.todoItems.push({
                     id:num++,
                     value: value,
+                    isCompleted: false,
+                    isEditing: false
                 })
                 this.inputValue = "";
             },

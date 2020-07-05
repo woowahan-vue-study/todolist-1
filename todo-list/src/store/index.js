@@ -7,7 +7,10 @@ export default new Vuex.Store({
   state: {
     todoItems: []
   },
-  mutations: {},
+  mutations: {
+    DELETE_TODO(state, id) {
+    }
+  },
   actions: {},
   modules: {}
 });
