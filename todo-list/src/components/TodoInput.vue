@@ -23,9 +23,8 @@
                 const value = e.target.value;
                 this.$store.state.todoItems.push({
                     id:num++,
-                    value: value
+                    value: value,
                 })
-                console.log(this.$store.state.todoItems);
                 this.inputValue = "";
             },
         }

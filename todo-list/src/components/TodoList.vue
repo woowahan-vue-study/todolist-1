@@ -6,7 +6,7 @@
             <TodoItem
                     v-for="todoItem in todoItems"
                     :key = "todoItem.id"
-                    :item = "todoItem.value"
+                    :item = "todoItem"
             />
         </ul>
     </div>
