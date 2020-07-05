@@ -49,9 +49,9 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    // CHANGE_VIEW(state, target) {
-    //   state.todoFilter = FILTER.of(target);
-    // },
+    CHANGE_VIEW(state, filterId) {
+      state.todoFilter = FILTER.of(filterId);
+    },
   },
   actions: {},
   modules: {},

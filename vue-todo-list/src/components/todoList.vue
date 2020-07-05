@@ -10,6 +10,7 @@
 
 <script>
 import todoItmeComponent from "./todoItem";
+import { FILTER } from "../utils/contants";
 
 export default {
   components: {
@@ -17,6 +18,15 @@ export default {
   },
   computed: {
     todoItems() {
+      if (this.$store.state.todoFilter === FILTER.ACTIVE) {          
+        return this.$store.state.todoItems.filter(
+          ({ isCompleted }) => !isCompleted
+        );
+      } else if (this.$store.state.todoFilter === FILTER.COMPLETED) {
+        return this.$store.state.todoItems.filter(
+          ({ isCompleted }) => isCompleted
+        );
+      }
       return this.$store.state.todoItems;
     },
   },
