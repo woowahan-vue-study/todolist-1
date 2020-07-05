@@ -1,5 +1,5 @@
 <template>
-    <li :class="{completed: item.isCompleted, editing: item.isEditing}">
+    <li :class="{completed: item.isCompleted, editing: item.isEditing}" v-if="item.isSelected === false">
         <div class="view">
             <input class="toggle" type="checkbox" @change="completeTodoItem">
             <label class="label" @dblclick="changeTodoItemState">{{ item.value }}</label>

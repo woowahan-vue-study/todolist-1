@@ -26,7 +26,8 @@
                     id:num++,
                     value: value,
                     isCompleted: false,
-                    isEditing: false
+                    isEditing: false,
+                    isSelected: false,
                 })
                 this.inputValue = "";
             },
