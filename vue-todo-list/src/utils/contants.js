@@ -17,6 +17,9 @@ export const FILTER = {
     text: "완료한 일",
     link: "#/completed",
   },
+  of: (filterId) => {
+      return Object.values(FILTER).find(({id}) => filterId === id);
+  }
 };
 
 export const BASE_URL = "https://todo-api.roto.codes/rutgo2/";
