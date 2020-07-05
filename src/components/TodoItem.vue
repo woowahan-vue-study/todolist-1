@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { FILTER } from "../utils/constants";
+
 export default {
   name: "TodoItem",
   props: {
@@ -45,9 +47,9 @@ export default {
   methods: {
     setView(filter) {
       this.show = true;
-      if (filter === "active") {
+      if (filter === FILTER.ACTIVE) {
         this.show = !this.item.isCompleted;
-      } else if (filter === "completed") {
+      } else if (filter === FILTER.COMPLETED) {
         this.show = this.item.isCompleted;
       }
     },
