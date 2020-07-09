@@ -15,15 +15,17 @@ import TodoFilter from './TodoFilter.vue';
 import { FilterType } from '../util/constants.js';
 
 export default {
+    data() {
+        return {
+            filters: FilterType,
+        };
+    },
     components: {
         TodoFilter,
     },
     computed: {
         count() {
             return this.$store.getters.filteredCount;
-        },
-        filters() {
-            return FilterType;
         },
     },
 };
