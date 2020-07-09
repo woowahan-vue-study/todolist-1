@@ -5,7 +5,7 @@
       :class="[{ selected: isRightFilterCondition }, filterType.className]"
       @click="changeState(filterType)"
     >
-      <slot />
+      {{ filterType.text }}
     </a>
   </li>
 </template>
