@@ -1,10 +1,6 @@
 <template>
   <ul id="todo-list" class="todo-list">
-    <todo-item
-      v-for="item in selectedItem"
-      :key="item._id"
-      v-bind:item="item"
-    />
+    <todo-item v-for="item in selectedItem" :key="item._id" :item="item" />
   </ul>
 </template>
 

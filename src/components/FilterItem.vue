@@ -1,12 +1,9 @@
 <template>
   <li>
     <a
-      v-bind:href="filterType.link"
-      v-on:click="changeState(filterType)"
-      v-bind:class="[
-        { selected: isRightFilterCondition },
-        filterType.className
-      ]"
+      :href="filterType.link"
+      :class="[{ selected: isRightFilterCondition }, filterType.className]"
+      @click="changeState(filterType)"
     >
       <slot />
     </a>
@@ -17,7 +14,12 @@
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["filterType"],
+  props: {
+    filterType: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     ...mapGetters(["selectedFilterType"]),
     isRightFilterCondition() {

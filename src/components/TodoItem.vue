@@ -1,6 +1,6 @@
 <template>
   <li
-    v-bind:class="{
+    :class="{
       editing: isEditing,
       completed: !isEditing && item.isCompleted
     }"
@@ -9,27 +9,32 @@
       <input
         class="toggle"
         type="checkbox"
-        v-bind:checked="item.isCompleted"
-        v-on:change="clickToggle(item)"
+        :checked="item.isCompleted"
+        @change="clickToggle"
       />
-      <label class="label" v-on:dblclick="switchEditMode()">{{
-        item.content
-      }}</label>
-      <button class="destroy" v-on:click="deleteItem(item)" />
+      <label class="label" @dblclick="switchEditMode">
+        {{ item.content }}
+      </label>
+      <button class="destroy" @click="deleteItem" />
     </div>
     <input
       v-model="editInput"
-      v-on:keyup.enter="editContent(item)"
-      v-on:keyup.esc="cancelEdit(item)"
       class="edit"
       value="완료된 타이틀"
+      @keyup.enter="editContent"
+      @keyup.esc="cancelEdit"
     />
   </li>
 </template>
 
 <script>
 export default {
-  props: ["item"],
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       editInput: this.item.content,
@@ -40,29 +45,29 @@ export default {
     switchEditMode() {
       this.isEditing = !this.isEditing;
     },
-    clickToggle(item) {
+    clickToggle() {
       const updatedItem = {
-        _id: item._id,
-        content: item.content,
-        isCompleted: !item.isCompleted
+        _id: this.item._id,
+        content: this.item.content,
+        isCompleted: !this.item.isCompleted
       };
       this.$store.dispatch("updateItem", updatedItem);
     },
-    editContent(item) {
+    editContent() {
       const updatedItem = {
-        _id: item._id,
+        _id: this.item._id,
         content: this.editInput,
-        isCompleted: item.isCompleted
+        isCompleted: this.item.isCompleted
       };
       this.$store.dispatch("updateItem", updatedItem);
       this.switchEditMode();
     },
-    cancelEdit(item) {
+    cancelEdit() {
       this.isEditing = false;
-      this.editInput = item.content;
+      this.editInput = this.item.content;
     },
-    deleteItem({ _id }) {
-      this.$store.dispatch("removeItem", _id);
+    deleteItem() {
+      this.$store.dispatch("removeItem", this.item._id);
     }
   }
 };
