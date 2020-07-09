@@ -1,24 +1,25 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
+import Vuex from "vuex";
+import Vue from "vue";
 
-import actions from './actions.js'
-import getters from './getters.js'
+import { FilterType } from "../util/constant.js";
+import actions from "./actions.js";
+import getters from "./getters.js";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     items: [],
-    selectedState: 'all'
+    filterType: FilterType.ALL
   },
   actions,
   mutations: {
     setItems(state, items) {
-      state.items = items
+      state.items = items;
     },
-    updateSelectedState(state, selectedState) {
-      state.selectedState = selectedState
+    updateFilterType(state, filterType) {
+      state.filterType = filterType;
     }
   },
   getters
-})
+});

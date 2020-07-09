@@ -1,17 +1,11 @@
 export default {
   selectedItem(state) {
-    if (state.selectedState === 'all') {
-      return state.items
-    }
-    if (state.selectedState === 'unCompleted') {
-      return state.items.filter(item => !item.isCompleted)
-    }
-    return state.items.filter(item => item.isCompleted)
+    return state.items.filter(item => state.filterType.filter(item));
   },
   selectedCount(state, getters) {
-    return getters.selectedItem.length
+    return getters.selectedItem.length;
   },
-  selectedState(state) {
-    return state.selectedState
+  selectedFilterType(state) {
+    return state.filterType;
   }
-}
+};

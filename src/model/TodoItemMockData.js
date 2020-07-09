@@ -18,5 +18,5 @@ export default [
     _id: `1f68d9A`,
     content: `죠르디 양말 선물하기`,
     isCompleted: false
-  },
+  }
 ];
