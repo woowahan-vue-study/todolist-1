@@ -35,7 +35,6 @@ export default {
             this.isEditing = false;
         },
         updateTodo() {
-            console.log(this.modifiedContent);
             this.$store.commit('UPDATE_TODO', { id: this.todo._id, content: this.modifiedContent });
             this.isEditing = false;
         },

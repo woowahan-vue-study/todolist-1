@@ -31,7 +31,6 @@ export default new Vuex.Store({
             }
         },
         async UPDATE_TODO(state, { id, content }) {
-            console.log(content);
             state.todos
                 .filter((todo) => todo._id === id)
                 .map((todo) => {
