@@ -1,6 +1,6 @@
 <template>
     <li>
-        <a class="{ filterType.className }" :class="{ selected }" @click="changeFilter">{{ filterType.content }}</a>
+        <a :class="[filterType.className, { selected }]" @click="changeFilter">{{ filterType.content }}</a>
     </li>
 </template>
 
