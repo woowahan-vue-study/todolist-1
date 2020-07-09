@@ -18,7 +18,7 @@ export default {
     TodoItem,
   },
   created() {
-    this.$store.commit("LOAD_TODO");
+    this.$store.dispatch("LOAD_TODO");
   },
   computed: {
     items() {

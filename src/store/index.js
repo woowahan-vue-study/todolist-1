@@ -11,13 +11,11 @@ export default new Vuex.Store({
     todoFilter: FILTER.ALL,
   },
   mutations: {
-    async LOAD_TODO(state) {
-      state.todoItems = await api.todo.getAll().catch((error) => alert(error));
+    SET_TODO(state, items) {
+      state.todoItems = items;
     },
-    async ADD_TODO(state, content) {
-      await api.todo.create({ content }).catch((error) => alert(error));
-      const newTodo = await api.todo.getAll().catch((error) => alert(error));
-      state.todoItems.push(newTodo[newTodo.length - 1]);
+    ADD_TODO(state, item) {
+      state.todoItems.push(item);
     },
     COMPLETE_TODO(state, id) {
       api.todo.toggle(id).catch((error) => alert(error));
@@ -30,6 +28,16 @@ export default new Vuex.Store({
       state.todoFilter = FILTER.of(target);
     },
   },
-  actions: {},
+  actions: {
+    async LOAD_TODO(context) {
+      const items = await api.todo.getAll().catch((error) => alert(error));
+      context.commit("SET_TODO", items);
+    },
+    async ADD_TODO(context, content) {
+      await api.todo.create({ content }).catch((error) => alert(error));
+      const newItems = await api.todo.getAll().catch((error) => alert(error));
+      context.commit("ADD_TODO", newItems[newItems.length - 1]);
+    },
+  },
   modules: {},
 });
