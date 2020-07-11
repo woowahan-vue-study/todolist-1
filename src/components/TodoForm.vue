@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { ADD_TODO } from "../store/actionType.js";
+
 export default {
   data() {
     return {
@@ -20,7 +22,7 @@ export default {
   },
   methods: {
     addTodoItem() {
-      this.$store.dispatch("addItem", this.inputValue);
+      this.$store.dispatch(ADD_TODO, { content: this.inputValue });
       this.inputValue = "";
     }
   }

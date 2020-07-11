@@ -1,39 +1,22 @@
-import mockData from "../model/TodoItemMockData.js";
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+import { BASE_URL, USER_NAMES } from "../util/constant.js";
 
-const idGenerator = (() => {
-  let startId = 1000000;
-  return () => (++startId).toString();
-})();
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = BASE_URL;
 
 export default {
-  getTodoList() {
-    return new Promise(res => setTimeout(() => res(mockData), 1000));
+  get() {
+    return Vue.axios.get(USER_NAMES.DONGLE);
   },
-  add(content) {
-    return new Promise(res =>
-      setTimeout(() => {
-        const createdId = idGenerator();
-        mockData.push({ _id: createdId, content, isCompleted: false });
-        res(createdId);
-      }, 1000)
-    );
+  add(params) {
+    return Vue.axios.post(USER_NAMES.DONGLE, params);
   },
-  update(newItem) {
-    return new Promise(res =>
-      setTimeout(() => {
-        const index = mockData.findIndex(item => item._id === newItem._id);
-        mockData.splice(index, 1, newItem);
-        res(newItem._id);
-      }, 800)
-    );
+  update({ _id }) {
+    return Vue.axios.put(`${USER_NAMES.DONGLE}/${_id}/toggle`);
   },
   delete(id) {
-    return new Promise(res =>
-      setTimeout(() => {
-        const index = mockData.findIndex(item => item._id === id);
-        mockData.splice(index, 1);
-        res();
-      }, 1000)
-    );
+    return Vue.axios.delete(`${USER_NAMES.DONGLE}/${id}`);
   }
 };

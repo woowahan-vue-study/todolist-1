@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import { REMOVE_TODO, TOGGLE_TODO } from "../store/actionType.js";
+import { UPDATE_TODO_ITEM_IN_LIST } from "../store/mutationsType.js";
+
 export default {
   props: {
     item: {
@@ -46,20 +49,16 @@ export default {
       this.isEditing = !this.isEditing;
     },
     clickToggle() {
-      const updatedItem = {
-        _id: this.item._id,
-        content: this.item.content,
+      this.$store.dispatch(TOGGLE_TODO, {
+        ...this.item,
         isCompleted: !this.item.isCompleted
-      };
-      this.$store.dispatch("updateItem", updatedItem);
+      });
     },
     editContent() {
-      const updatedItem = {
-        _id: this.item._id,
-        content: this.editInput,
-        isCompleted: this.item.isCompleted
-      };
-      this.$store.dispatch("updateItem", updatedItem);
+      this.$store.commit(UPDATE_TODO_ITEM_IN_LIST, {
+        ...this.item,
+        content: this.editInput
+      });
       this.switchEditMode();
     },
     cancelEdit() {
@@ -67,7 +66,7 @@ export default {
       this.editInput = this.item.content;
     },
     deleteItem() {
-      this.$store.dispatch("removeItem", this.item._id);
+      this.$store.dispatch(REMOVE_TODO, this.item._id);
     }
   }
 };
