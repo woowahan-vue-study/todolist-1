@@ -1,22 +1,22 @@
 <template>
     <li>
-        <a :class="[filterType.className, { selected }]" @click="changeFilter">{{ filterType.content }}</a>
+        <a :class="[filter.className, { selected }]" @click="changeFilter">{{ filter.content }}</a>
     </li>
 </template>
 
 <script>
 export default {
     props: {
-        filterType: Object,
+        filter: Object,
     },
     computed: {
         selected() {
-            return this.$store.state.filter.className === this.filterType.className;
+            return this.filter === this.$store.state.filter;
         },
     },
     methods: {
         changeFilter() {
-            this.$store.commit('CHANGE_FILTER', this.filterType);
+            this.$store.commit('CHANGE_FILTER', this.filter);
         },
     },
 };

@@ -5,7 +5,7 @@
             <strong>{{ count }}</strong> 개
         </span>
         <ul class="filters">
-            <todo-filter v-for="filter in filters" :key="filter.className" :filterType="filter" />
+            <todo-filter v-for="filter in filters" :key="filter.className" :filter="filter" />
         </ul>
     </div>
 </template>
