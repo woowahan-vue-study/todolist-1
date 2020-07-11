@@ -22,6 +22,9 @@ export default {
   },
   methods: {
     addTodoItem() {
+      if (!this.inputValue) {
+        return;
+      }
       this.$store.dispatch(ADD_TODO, { content: this.inputValue });
       this.inputValue = "";
     }
