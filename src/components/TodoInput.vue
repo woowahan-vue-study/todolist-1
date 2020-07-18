@@ -13,12 +13,11 @@
 export default {
   name: "TodoInput",
   methods: {
-    addTodo(event) {
-      const content = event.target.value;
-      if (!content) {
+    addTodo() {
+      if (!this.inputValue) {
         return;
       }
-      this.$store.dispatch("ADD_TODO", content);
+      this.$store.dispatch("ADD_TODO", this.inputValue);
       this.inputValue = "";
     },
   },

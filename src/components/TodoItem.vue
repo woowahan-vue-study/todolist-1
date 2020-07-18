@@ -17,7 +17,7 @@
     </div>
     <input
       class="edit"
-      :value="item.content"
+      v-model="inputValue"
       @keyup.enter="editTodo"
       @keyup.esc="toggleEditingTodo"
     />
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       show: true,
+      inputValue: this.item.content,
     };
   },
   methods: {
@@ -65,13 +66,12 @@ export default {
       this.item.isEditing = !this.item.isEditing;
       this.$forceUpdate();
     },
-    editTodo(event) {
-      const content = event.target.value;
-      if (!content) {
+    editTodo() {
+      if (!this.inputValue) {
         this.toggleEditingTodo();
         return;
       }
-      this.item.content = content;
+      this.item.content = this.inputValue;
       this.item.isEditing = !this.item.isEditing;
     },
   },
