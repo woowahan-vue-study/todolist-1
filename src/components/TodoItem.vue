@@ -35,7 +35,7 @@ export default {
       required: true,
     },
     filter: {
-      type: String,
+      type: Object,
       required: true,
     },
   },

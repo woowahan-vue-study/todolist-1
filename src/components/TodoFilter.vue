@@ -1,31 +1,24 @@
 <template>
-  <ul class="filters">
-    <li>
-      <a class="all selected" data-value="all" @click="changeView">전체보기</a>
-    </li>
-    <li>
-      <a class="active" data-value="active" @click="changeView">해야할 일</a>
-    </li>
-    <li>
-      <a class="completed" data-value="completed" @click="changeView"
-        >완료한 일</a
-      >
-    </li>
+  <ul class="filters" ref="filters">
+    <TodoFilterItem
+      v-for="filter in filters"
+      :key="filter.name"
+      :filter="filter"
+    />
   </ul>
 </template>
 
 <script>
+import TodoFilterItem from "./TodoFilterItem";
+
 export default {
   name: "TodoFilter",
-  methods: {
-    changeView(event) {
-      this.changeSelected(event);
-      this.$store.commit("CHANGE_VIEW", event.target);
-    },
-    changeSelected(event) {
-      const $filters = event.target.closest("ul");
-      $filters.querySelector(".selected").classList.toggle("selected");
-      event.target.classList.toggle("selected");
+  components: {
+    TodoFilterItem,
+  },
+  computed: {
+    filters() {
+      return this.$store.state.todoFilter;
     },
   },
 };

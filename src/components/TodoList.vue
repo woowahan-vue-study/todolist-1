@@ -25,7 +25,7 @@ export default {
       return this.$store.state.todoItems;
     },
     filter() {
-      return this.$store.state.todoFilter;
+      return this.$store.getters.selectedFilter;
     },
   },
 };

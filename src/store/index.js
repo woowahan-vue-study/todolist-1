@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     todoItems: [],
-    todoFilter: FILTER.ALL,
+    todoFilter: FILTER,
   },
   mutations: {
     SET_TODO(state, items) {
@@ -24,8 +24,10 @@ export default new Vuex.Store({
       state.todoItems = state.todoItems.filter((item) => item._id !== id);
       api.todo.delete(id).catch((error) => alert(error));
     },
-    CHANGE_VIEW(state, target) {
-      state.todoFilter = FILTER.of(target);
+    CHANGE_SELECTED(state, filter) {
+      Object.values(state.todoFilter).find(
+        (value) => value === filter
+      ).selected = true;
     },
   },
   actions: {
@@ -38,6 +40,14 @@ export default new Vuex.Store({
       const newItems = await api.todo.getAll().catch((error) => alert(error));
       context.commit("ADD_TODO", newItems[newItems.length - 1]);
     },
+    CHANGE_VIEW(context, filter) {
+      context.getters.selectedFilter.selected = false;
+      context.commit("CHANGE_SELECTED", filter);
+    },
   },
-  modules: {},
+  getters: {
+    selectedFilter(state) {
+      return Object.values(state.todoFilter).find((filter) => filter.selected);
+    },
+  },
 });
